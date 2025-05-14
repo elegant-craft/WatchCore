@@ -4,5 +4,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "WatchCore"
+    name: "WatchCore",
+    platforms: [
+        .watchOS(.v6)
+    ],
+    products: [
+        .library(
+            name: "WatchCore",
+            targets: ["WatchCore"]
+        ),
+    ],
+    dependencies: [],
+    targets: [
+        .target(
+            name: "WatchCore",
+            path: "Sources/WatchCore"
+        ),
+    ]
 )
