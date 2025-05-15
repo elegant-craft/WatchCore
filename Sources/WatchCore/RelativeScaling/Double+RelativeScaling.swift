@@ -22,4 +22,11 @@ public extension Double {
     var rWidth: Double {
         currentScreenWidth * (self / LayoutDesign.baselineWidth)
     }
+    
+    var px: Double {
+        let device = WKInterfaceDevice.current()
+        let bounds = device.screenBounds
+        let scale  = device.screenScale
+        return self / scale
+    }
 }

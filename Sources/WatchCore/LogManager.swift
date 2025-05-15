@@ -1,4 +1,5 @@
 import Foundation
+import WatchKit
 
 public struct LogManager {
     
@@ -22,11 +23,28 @@ public struct LogManager {
         #endif
     }
     
-    static func lifecyle(_ message: Any, file: String = #file, line: Int = #line) {
+    static func lifecyle(_ message: Any) {
         #if DEBUG
-        let fileName = (file as NSString).lastPathComponent
         let formattedDate = dateFormatter.string(from: Date())
         print("♻️ LIFECYCLE =================================   \(formattedDate) ► \(message)")
+        #endif
+    }
+    
+    public static func systemInfo() {
+        #if DEBUG
+        let formattedDate = dateFormatter.string(from: Date())
+        print("📺 SYSTEM    =================================   \(formattedDate) ▼")
+        let device = WKInterfaceDevice.current()
+        let bounds = device.screenBounds
+        let scale  = device.screenScale
+        let width = bounds.width
+        let height = bounds.height
+        print("             === screenWidth:  \(width)")
+        print("             === screenHeight: \(height)")
+        print("             === screenScale:  \(scale)")
+        print("             === pixelWidth:   \(scale * width)")
+        print("             === pixelHeight:  \(scale * height)")
+        
         #endif
     }
 }
