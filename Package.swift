@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "WatchCore",
     platforms: [
-        .watchOS(.v6)
+        .watchOS(.v7)
     ],
     products: [
         .library(

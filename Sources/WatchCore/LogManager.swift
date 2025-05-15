@@ -17,6 +17,12 @@ public struct LogManager {
     public static func info(_ message: Any, file: String = #file, line: Int = #line) {
         let fileName = (file as NSString).lastPathComponent
         let formattedDate = dateFormatter.string(from: Date())
-        print("🟩 INFO    \(padString(fileName, toLength: 30)):\(padString(String(line), toLength: 4)) \(formattedDate) ► \(message)")
+        print("🟩 INFO      \(padString(fileName, toLength: 30)):\(padString(String(line), toLength: 4)) \(formattedDate) ► \(message)")
+    }
+    
+    static func lifecyle(_ message: Any, file: String = #file, line: Int = #line) {
+        let fileName = (file as NSString).lastPathComponent
+        let formattedDate = dateFormatter.string(from: Date())
+        print("♻️ LIFECYCLE =================================   \(formattedDate) ► \(message)")
     }
 }
