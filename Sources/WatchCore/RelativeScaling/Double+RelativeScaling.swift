@@ -1,24 +1,43 @@
-#if canImport(WatchKit)
 import Foundation
+#if os(iOS)
+import UIKit
+#elseif os(watchOS)
 import WatchKit
+#endif
 
-public var currentScreenWidth: CGFloat {
-    WKInterfaceDevice.current().screenBounds.width
+#if os(iOS)
+@MainActor
+#elseif os(watchOS)
+#endif
+private var currentScreenWidth: CGFloat {
+    SystemInfo.screenBounds.width
 }
-public var currentScreenHeight: CGFloat {
-    WKInterfaceDevice.current().screenBounds.height
+
+#if os(iOS)
+@MainActor
+#elseif os(watchOS)
+#endif
+private var currentScreenHeight: CGFloat {
+    SystemInfo.screenBounds.height
 }
 
 public extension Double {
+    
+    #if os(iOS)
+    @MainActor
+    #elseif os(watchOS)
+    #endif
     var rWidth: Double {
         currentScreenWidth * (self / LayoutDesign.baselineWidth)
     }
     
+    #if os(iOS)
+    @MainActor
+    #elseif os(watchOS)
+    #endif
     var px: Double {
-        let device = WKInterfaceDevice.current()
-        let bounds = device.screenBounds
-        let scale  = device.screenScale
+        let bounds = SystemInfo.screenBounds
+        let scale  = SystemInfo.screenScale
         return self / scale
     }
 }
-#endif

@@ -1,7 +1,11 @@
-#if canImport(WatchKit)
+#if os(iOS)
+import UIKit
+#elseif os(watchOS)
 import WatchKit
+#endif
 import SwiftUI
 
+#if os(watchOS)
 public class ApplicationDelegate: NSObject, WKApplicationDelegate {
     public func applicationDidFinishLaunching() {
         LogManager.lifecyle("[didFinishLaunching]")

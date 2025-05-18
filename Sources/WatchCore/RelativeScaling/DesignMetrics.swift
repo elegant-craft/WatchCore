@@ -1,6 +1,9 @@
-#if canImport(WatchKit)
 import Foundation
+#if os(iOS)
+import UIKit
+#elseif os(watchOS)
 import WatchKit
+#endif
 
 public class Dm {
     
@@ -15,9 +18,12 @@ public class Dm {
         return val!
     }
     
+    #if os(iOS)
+    @MainActor
+    #elseif os(watchOS)
+    #endif
     public func m46(_ d: Double) -> Dm {
-        let device = WKInterfaceDevice.current()
-        let bounds = device.screenBounds
+        let bounds = SystemInfo.screenBounds
         let width = bounds.width
         let height = bounds.height
         if width == 208.0 && height == 248.0 {
@@ -28,6 +34,5 @@ public class Dm {
 }
 
 enum LayoutDesign {
-    static let baselineWidth: Double = 416
+    static let baselineWidth: Double = 360
 }
-#endif
