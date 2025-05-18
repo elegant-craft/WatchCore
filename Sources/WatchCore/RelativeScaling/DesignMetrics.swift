@@ -1,3 +1,4 @@
+#if canImport(WatchKit)
 import Foundation
 import WatchKit
 
@@ -29,3 +30,4 @@ public class Dm {
 enum LayoutDesign {
     static let baselineWidth: Double = 416
 }
+#endif

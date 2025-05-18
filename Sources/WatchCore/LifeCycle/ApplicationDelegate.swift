@@ -1,3 +1,4 @@
+#if canImport(WatchKit)
 import WatchKit
 import SwiftUI
 
@@ -68,3 +69,4 @@ extension WatchApp {
         }
     }
 }
+#endif

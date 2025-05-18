@@ -1,5 +1,7 @@
 import Foundation
+#if canImport(WatchKit)
 import WatchKit
+#endif
 
 public struct LogManager {
     
@@ -34,6 +36,9 @@ public struct LogManager {
         #if DEBUG
         let formattedDate = dateFormatter.string(from: Date())
         print("📺 SYSTEM    =================================   \(formattedDate) ▼")
+        #if os(iOS)
+//        let result = UIScreen.main.bounds
+        #elseif os(watchOS)
         let device = WKInterfaceDevice.current()
         let bounds = device.screenBounds
         let scale  = device.screenScale
@@ -44,7 +49,7 @@ public struct LogManager {
         print("             === screenScale:  \(scale)")
         print("             === pixelWidth:   \(scale * width)")
         print("             === pixelHeight:  \(scale * height)")
-        
+        #endif
         #endif
     }
 }
