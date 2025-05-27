@@ -22,6 +22,28 @@ public class ApplicationDelegate: NSObject, WKApplicationDelegate {
         NotificationCenter.default.post(name: .applicationWillEnterForeground, object: nil)
     }
 }
+#elseif os(iOS)
+public class ApplicationDelegate: NSObject, UIApplicationDelegate {
+    public func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
+        LogManager.lifecyle("[didFinishLaunching]")
+        NotificationCenter.default.post(name: .applicationDidFinishLaunching, object: nil)
+        return true
+    }
+
+    public func applicationDidEnterBackground(_ application: UIApplication) {
+        LogManager.lifecyle("[didEnterBackground]")
+        NotificationCenter.default.post(name: .appDidEnterBackground, object: nil)
+    }
+
+    public func applicationWillEnterForeground(_ application: UIApplication) {
+        LogManager.lifecyle("[willEnterForeground]")
+        NotificationCenter.default.post(name: .applicationWillEnterForeground, object: nil)
+    }
+}
+#endif
 
 extension Notification.Name {
     public static let appDidEnterBackground = Notification.Name("appDidEnterBackground")
@@ -73,4 +95,4 @@ extension WatchApp {
         }
     }
 }
-#endif
+
