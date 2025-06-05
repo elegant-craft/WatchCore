@@ -34,5 +34,5 @@ public class Dm {
 }
 
 enum LayoutDesign {
-    static let baselineWidth: Double = 360
+    static let baselineWidth: Double = 375
 }

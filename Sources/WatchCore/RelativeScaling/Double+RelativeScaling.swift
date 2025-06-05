@@ -40,4 +40,12 @@ public extension Double {
         let scale  = SystemInfo.screenScale
         return self / scale
     }
+    
+    #if os(iOS)
+    @MainActor
+    #elseif os(watchOS)
+    #endif
+    var watchScreen: Double {
+        176 * 1.9 * (self / 375)
+    }
 }
