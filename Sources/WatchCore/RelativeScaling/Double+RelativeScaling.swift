@@ -36,16 +36,18 @@ public extension Double {
     #elseif os(watchOS)
     #endif
     var px: Double {
-        let bounds = SystemInfo.screenBounds
         let scale  = SystemInfo.screenScale
         return self / scale
     }
     
     #if os(iOS)
     @MainActor
-    #elseif os(watchOS)
-    #endif
-    var watchScreen: Double {
-        176 * 1.9 * (self / 375)
+    var watchScreen_rWidth: Double {
+        (300) / 375 * currentScreenWidth * (self / LayoutDesign.baselineWidth)
     }
+    #elseif os(watchOS)
+    var watchScreen_rWidth: Double {
+        currentScreenWidth * (self / LayoutDesign.baselineWidth)
+    }
+    #endif
 }

@@ -35,4 +35,5 @@ public class Dm {
 
 enum LayoutDesign {
     static let baselineWidth: Double = 375
+    static let baselineWidth_watch: Double = 176
 }
