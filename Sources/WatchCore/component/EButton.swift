@@ -1,31 +1,37 @@
 import SwiftUI
 
-public struct EButton<Content: View>: View {
+public struct EButton<Content>: View where Content: View {
     let action: () -> Void
-    let content: (_ isPressed: Bool) -> Content
-
-    @GestureState private var isPressed = false
+    public let content: (_ isPressed: Bool) -> Content
     
-    public init(
-        action: @escaping () -> Void,
-        @ViewBuilder content: @escaping (_ isPressed: Bool) -> Content
-    ) {
+    public init(action: @escaping () -> Void, @ViewBuilder content: @escaping (_ isPressed: Bool) -> Content) {
         self.action = action
         self.content = content
     }
-
+    
     public var body: some View {
-        let gesture = DragGesture(minimumDistance: 0)
-            .updating($isPressed) { _, state, _ in
-                state = true
-            }
-            .onEnded { _ in
-                action()
-            }
+        Button(action: {
+            action()
+        }) {
+            EmptyView()
+        }
+        .buttonStyle(EButtonButtonStyle(content: { isPressed in
+            self.content(isPressed)
+        }))
+    }
+}
 
-        return content(isPressed)
-            .scaleEffect(isPressed ? 0.95 : 1.0)
-            .animation(.easeInOut(duration: 0.15), value: isPressed)
-            .gesture(gesture)
+public struct EButtonButtonStyle<Content>: ButtonStyle where Content: View {
+    
+    public let content: (_ isPressed: Bool) -> Content
+    
+    public init(@ViewBuilder content: @escaping (_ isPressed: Bool) -> Content) {
+        self.content = content
+    }
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        self.content(configuration.isPressed)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
     }
 }

@@ -14,10 +14,10 @@ public struct Application {
     
     @MainActor
     public func popPage() {
-        if (!Application.shared.globalViewModel.pages.isEmpty) {
+        if (Application.shared.globalViewModel.pages.count > 1) {
             Application.shared.globalViewModel.pages.removeLast()
         } else {
-            print("homeView cant pop")
+            LogManager.error("FirstView cant pop")
         }
     }
 }

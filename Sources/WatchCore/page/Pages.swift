@@ -16,7 +16,7 @@ public class GlobelViewModel: ObservableObject {
 
 public struct PageView<Content>: View where Content: View {
     
-    @ObservedObject var global: GlobelViewModel = Application.shared.globalViewModel
+    @StateObject var global: GlobelViewModel = Application.shared.globalViewModel
     
     public let content: () -> Content
     
@@ -26,9 +26,15 @@ public struct PageView<Content>: View where Content: View {
     
     public var body: some View {
         ZStack {
-            self.content()
             ForEach(global.pages) { item in
                 item.buildView()
+            }
+        }
+        .onAppear {
+            if global.pages.isEmpty {
+                Application.shared.pushPage(
+                    view: PageAnimation(content: { self.content() })
+                )
             }
         }
     }
