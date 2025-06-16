@@ -25,11 +25,19 @@ public struct LogManager {
         #endif
     }
     
+    public static func debbug(_ message: Any, file: String = #file, line: Int = #line) {
+        #if DEBUG
+        let fileName = (file as NSString).lastPathComponent
+        let formattedDate = dateFormatter.string(from: Date())
+        print("🟪 DEBUG     \(padString(fileName, toLength: 30)):\(padString(String(line), toLength: 4)) \(formattedDate) ► \(message)")
+        #endif
+    }
+    
     public static func error(_ message: Any, file: String = #file, line: Int = #line) {
         #if DEBUG
         let fileName = (file as NSString).lastPathComponent
         let formattedDate = dateFormatter.string(from: Date())
-        print("🟥 ERROR      \(padString(fileName, toLength: 30)):\(padString(String(line), toLength: 4)) \(formattedDate) ► \(message)")
+        print("🟥 ERROR     \(padString(fileName, toLength: 30)):\(padString(String(line), toLength: 4)) \(formattedDate) ► \(message)")
         #endif
     }
     
